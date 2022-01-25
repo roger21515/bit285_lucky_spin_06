@@ -32,14 +32,14 @@ namespace LuckySpin.Controllers
         }
         
         [HttpPost]
-        public IActionResult Index(Player player) //TODO: Update Index() to receive form data as IndexViewModel
+        public IActionResult Index(Player player, IndexViewModel indexVM) // Update Index() to receive form data as IndexViewModel
         {
             if (!ModelState.IsValid) { return View(); } //Check for missing data
 
-            //TODO: Complete adding Player data to store in the repoService
+            // Complete adding Player data to store in the repoService
             repoService.Player = new Player
             {
-                //FirstName = indexVM.FirstName,
+                Name = indexVM.FirstName,
             };
 
             return RedirectToAction("Spin");
@@ -49,25 +49,25 @@ namespace LuckySpin.Controllers
          * Spin Action
          **/  
                
-        public IActionResult Spin() //Start a Spin WITHOUT data
+        public IActionResult Spin(RepositoryService player) //Start a Spin WITHOUT data
         {
-         //CHARGE 
-            // TODO: Load Player balance from the repoService
-            decimal balance;
-
-            //TODO: Charge $0.50 to spin
+            //CHARGE 
+            // Load Player balance from the repoService
+            decimal balance = player.Player.Balance;
+            balance = balance - .50M;
+            //: Charge $0.50 to spin
 
 
          //SPIN
             //TODO: Complete adding data to a new SpinViewModel to gather items for the View
             SpinViewModel spinVM = new SpinViewModel
             {
-                //CurrentBalance = string.Format(new CultureInfo("en-SG", false), "{0:C2}", balance),
+               //  CurrentBalance = string.Format(new CultureInfo("en-SG", false), "{0:C2}", balance),
             };
 
-         //GAMEPLAY
+            //GAMEPLAY
             //TODO: Check the Balance to see if the game is over
-
+            balance == 0 ? "Sorry, the game is over" : Redirect(Spin());
             //TODO: Pay $1.00 if Winning
 
 
