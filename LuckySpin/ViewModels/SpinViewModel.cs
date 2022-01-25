@@ -29,7 +29,9 @@ namespace LuckySpin.ViewModels
         public int PlayerLuck { get; set; }
         //TODO: Add the remaining Spin ViewModel properties
 
- 
+        public decimal CurrentBalance { get; set; }
+
+        public string PlayerName { get; set; }
     }
 }
 
